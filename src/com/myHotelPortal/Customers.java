@@ -4,23 +4,25 @@ public class Customers {
     private String customerName;
     private String customerAddress;
     private String customerEmail;
-    private double customerPhone;
-    private String bookingStatus;
+    private long customerPhone;
+    private boolean bookingStatus;
+    private double customerId;
 
     private int custTotalRooms;
     private int custTotalSingleRooms;
     private int custTotalDoubleRooms;
     private int custTotalPresidentialSuit;
 
-    public Customers(String customerName, String customerAddress, String customerEmail, double customerPhone, String bookingStatus) {
+    public Customers(String customerName, String customerAddress, String customerEmail, long customerPhone, boolean bookingStatus, double customerId) {
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.customerEmail = customerEmail;
         this.customerPhone = customerPhone;
         this.bookingStatus = bookingStatus;
+        this.customerId = customerId;
     }
 
-    public Customers(String customerName, String customerAddress, String customerEmail, double customerPhone, String bookingStatus, int custTotalRooms, int custTotalSingleRooms) {
+    public Customers(String customerName, String customerAddress, String customerEmail, long customerPhone, boolean bookingStatus, int custTotalRooms, int custTotalSingleRooms) {
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.customerEmail = customerEmail;
@@ -32,7 +34,7 @@ public class Customers {
 
 
 
-    public Customers(String customerName, String customerAddress, String customerEmail, double customerPhone, String bookingStatus, int custTotalRooms, int custTotalSingleRooms, int custTotalDoubleRooms, int custTotalPresidentialSuit) {
+    public Customers(String customerName, String customerAddress, String customerEmail, long customerPhone, boolean bookingStatus, int custTotalRooms, int custTotalSingleRooms, int custTotalDoubleRooms, int custTotalPresidentialSuit) {
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.customerEmail = customerEmail;
@@ -72,15 +74,15 @@ public class Customers {
         return customerPhone;
     }
 
-    public void setCustomerPhone(double customerPhone) {
+    public void setCustomerPhone(long customerPhone) {
         this.customerPhone = customerPhone;
     }
 
-    public String getBookingStatus() {
+    public boolean getBookingStatus() {
         return bookingStatus;
     }
 
-    public void setBookingStatus(String bookingStatus) {
+    public void setBookingStatus(boolean bookingStatus) {
         this.bookingStatus = bookingStatus;
     }
 
