@@ -12,6 +12,37 @@ public class Customers {
     private int custTotalDoubleRooms;
     private int custTotalPresidentialSuit;
 
+    public Customers(String customerName, String customerAddress, String customerEmail, double customerPhone, String bookingStatus) {
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.customerEmail = customerEmail;
+        this.customerPhone = customerPhone;
+        this.bookingStatus = bookingStatus;
+    }
+
+    public Customers(String customerName, String customerAddress, String customerEmail, double customerPhone, String bookingStatus, int custTotalRooms, int custTotalSingleRooms) {
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.customerEmail = customerEmail;
+        this.customerPhone = customerPhone;
+        this.bookingStatus = bookingStatus;
+        this.custTotalRooms = custTotalRooms;
+        this.custTotalSingleRooms = custTotalSingleRooms;
+    }
+
+
+
+    public Customers(String customerName, String customerAddress, String customerEmail, double customerPhone, String bookingStatus, int custTotalRooms, int custTotalSingleRooms, int custTotalDoubleRooms, int custTotalPresidentialSuit) {
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.customerEmail = customerEmail;
+        this.customerPhone = customerPhone;
+        this.bookingStatus = bookingStatus;
+        this.custTotalRooms = custTotalRooms;
+        this.custTotalSingleRooms = custTotalSingleRooms;
+        this.custTotalDoubleRooms = custTotalDoubleRooms;
+        this.custTotalPresidentialSuit = custTotalPresidentialSuit;
+    }
 
     public String getCustomerName() {
         return customerName;
