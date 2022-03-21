@@ -1,17 +1,19 @@
 package com.myHotelPortal;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Operations {
+public class Operations implements Functions{
     List<Admins> admin;
-    List <Hotels> hotelList ;
-    List <Customers> customersList;
-    List <BookingLog> bookingLog;
-    List <History> history;
+    List <Hotels> hotelList = new ArrayList<>();
+    List <Customers> customersList = new ArrayList<>();
+    List <BookingLog> bookingLog = new ArrayList<>();
+    List <History> history = new ArrayList<>();
 
 
-
+// Show menu functions
+    @Override
     public void showMenu() {
         Scanner input = new Scanner(System.in);
         int localInput = 0;
@@ -30,11 +32,15 @@ public class Operations {
 
                     if(localInput == 1) {
                         customerMenu();
+                    }
+                    else if(localInput == 2){
+                        adminMenu();
+                        }
                     }else if(localInput == 3){
                         System.out.println("welcome Back Again!!!");
                         System.exit(0);
-                    }
-                } else {
+
+                   }else {
                     System.out.println("Input type mismatch, please insert an integer...");
                     isInteger = false;
                     input.next();
@@ -51,13 +57,16 @@ public class Operations {
         boolean isInteger = true;
 
         System.out.println("!!!Welcome to the Customer panel!!!");
-        System.out.println("Please select from the following menu" +
+        System.out.println(
+                "Please select from the following menu" +
+
                 "\n1. Press 1 to see available hotels. " +
                 "\n2. press 2 to book a hotel room." +
                 "\n3. Press 3 to check your booking." +
                 "\n4. Press 4 to update your booking." +
                 "\n5. Press 5 to cancel your booking." +
-                "\n6. Press 6 to exit.");
+                "\n6. Press 6 to exit."
+        );
 
         do {
             if (input.hasNextInt()) {
@@ -90,7 +99,7 @@ public class Operations {
         } while (!(isInteger));
     }
     private void addCustomer(){
-        Scanner input = new Scanner(System.in);
+        Scanner custInput = new Scanner(System.in);
         Customers cust;
 
         String name;
@@ -102,27 +111,113 @@ public class Operations {
 
 
         System.out.println("Enter your name");
-        name = input.nextLine();
+        name = custInput.nextLine();
         System.out.println("Enter your address");
-        address = input.nextLine();
+        address = custInput.nextLine();
         System.out.println("Enter your email");
-        email = input.nextLine();
+        email = custInput.nextLine();
         System.out.println("Enter your phone");
-        phone = input.nextLong();
+        phone = custInput.nextLong();
 
         cust = new Customers(name,address,email,phone,bookingStatus,id);
         customersList.add(cust);
     }
+
+
+    // Admin menu
+    private void adminMenu(){
+        Scanner adminInput = new Scanner(System.in);
+        int localInput = 0;
+        boolean isInteger = true;
+
+        System.out.println("!!!Welcome to the Admin panel!!!");
+        System.out.println(
+                "Please select from the following menu" +
+
+                "\n1. Press 1 to see available hotels. " +
+                "\n2. press 2 to insert new hotel." +
+                "\n3. Press 3 to check available booking." +
+                "\n4. Press 4 to update booking." +             // Edit booking or delete booking
+                "\n5. Press 5 to delete a hotel." +
+                "\n7. Press 7 to delete all hotels" +
+                "\n8. Press 8 to exit."
+        );
+
+        do {
+            if (adminInput.hasNextInt()) {
+                localInput = adminInput.nextInt();
+                isInteger = true;
+
+                if(localInput == 1) {
+                    System.out.println("All the hotel listed below");
+                    for (int i = 0; i < hotelList.size(); i++) {
+                        System.out.println("Hotel Name:" +hotelList.get(i).getHotelName());
+                        System.out.println("Place:" +hotelList.get(i).getHotelLocation());
+                        System.out.println("Total Number of rooms:" +hotelList.get(i).getTotalRooms());
+                        System.out.println("Available single Rooms:" +hotelList.get(i).getTotalSingleRooms());
+                        System.out.println("Available double rooms:" +hotelList.get(i).getTotalDoubleRooms());
+                        System.out.println("Available Presidential suit:" +hotelList.get(i).getTotalPresidentialSuit());
+                    }
+
+                }else if(localInput == 2){
+
+                    String hotelName;
+                    String place;
+                    int totalRoom;
+                    int singleRoom;
+                    int doubleRoom;
+                    int pdsSuit;
+
+                    System.out.println("Enter the name of the Hotel.");
+                        hotelName = adminInput.next();
+                    System.out.println("Enter Place of the hotel");
+                        place = adminInput.next();
+                    System.out.println("Enter total number of rooms.");
+                        totalRoom = adminInput.nextInt();
+                    System.out.println("Enter total number of single rooms.");
+                        singleRoom = adminInput.nextInt();
+                    System.out.println("Enter total number of double rooms.");
+                        doubleRoom = adminInput.nextInt();
+                    System.out.println("Enter total number of Presidential Suit.");
+                        pdsSuit = adminInput.nextInt();
+
+                        Hotels ht = new Hotels(hotelName,place,totalRoom,singleRoom,doubleRoom,pdsSuit);
+                        ht.setHotelName(hotelName);
+                        ht.setHotelLocation(place);
+                        ht.setTotalRooms(totalRoom);
+                        ht.setTotalSingleRooms(singleRoom);
+                        ht.setTotalDoubleRooms(doubleRoom);
+                        ht.setTotalPresidentialSuit(pdsSuit);
+
+                        hotelList.add(ht);
+
+
+                }else if(localInput == 3){
+
+                }else if(localInput == 4){
+
+                }else if(localInput == 5){
+
+                }else if(localInput == 6){
+
+                }
+
+            } else {
+                System.out.println("Input type mismatch, please insert an integer...");
+                isInteger = false;
+                adminInput.next();
+            }
+
+        } while (!(isInteger));
+
+    }
+
 
     private void showAvailableHotel(){
 
     }
 
     private void bookRoom(){
-
-    }
-    // Admin menu
-    private void adminMenu(){
 
     }
 

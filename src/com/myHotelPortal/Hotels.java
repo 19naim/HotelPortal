@@ -8,19 +8,6 @@ public class Hotels {
     private int totalDoubleRooms;
     private int totalPresidentialSuit;
 
-    public Hotels(String hotelName, String hotelLocation, int totalRooms) {
-        this.hotelName = hotelName;
-        this.hotelLocation = hotelLocation;
-        this.totalRooms = totalRooms;
-    }
-
-    public Hotels(String hotelName, String hotelLocation, int totalRooms, int totalSingleRooms, int totalDoubleRooms) {
-        this.hotelName = hotelName;
-        this.hotelLocation = hotelLocation;
-        this.totalRooms = totalRooms;
-        this.totalSingleRooms = totalSingleRooms;
-        this.totalDoubleRooms = totalDoubleRooms;
-    }
 
     public Hotels(String hotelName, String hotelLocation, int totalRooms, int totalSingleRooms, int totalDoubleRooms, int totalPresidentialSuit) {
         this.hotelName = hotelName;

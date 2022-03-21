@@ -7,9 +7,7 @@ public class MainHotelPortal {
 
 
     public static void main(String[] args) {
-       Operations opt = new Operations();
-    opt.showMenu();
+        Functions fn = new Operations();
+        fn.showMenu();
     }
-
-
 }
