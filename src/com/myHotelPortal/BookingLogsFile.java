@@ -1,4 +1,6 @@
 package com.myHotelPortal;
 
-public class BookingLogsFile {
+import java.io.Serializable;
+
+public abstract class BookingLogsFile extends DataManagement implements Serializable {
 }

@@ -19,46 +19,57 @@ public class Hotels {
     }
 
     public String getHotelName() {
+
         return hotelName;
     }
 
     public void setHotelName(String hotelName) {
+
         this.hotelName = hotelName;
     }
 
     public String getHotelLocation() {
+
         return hotelLocation;
     }
 
     public void setHotelLocation(String hotelLocation) {
+
         this.hotelLocation = hotelLocation;
     }
 
     public int getTotalRooms() {
+
         return totalRooms;
     }
 
     public void setTotalRooms(int totalRooms) {
+
         this.totalRooms = totalRooms;
     }
 
     public int getTotalSingleRooms() {
+
         return totalSingleRooms;
     }
 
     public void setTotalSingleRooms(int totalSingleRooms) {
+
         this.totalSingleRooms = totalSingleRooms;
     }
 
     public int getTotalDoubleRooms() {
+
         return totalDoubleRooms;
     }
 
     public void setTotalDoubleRooms(int totalDoubleRooms) {
+
         this.totalDoubleRooms = totalDoubleRooms;
     }
 
     public int getTotalPresidentialSuit() {
+
         return totalPresidentialSuit;
     }
 

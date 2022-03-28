@@ -1,4 +1,4 @@
 package com.myHotelPortal;
 
-public class History {
+public class Histories {
 }

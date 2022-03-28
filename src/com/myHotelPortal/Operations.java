@@ -8,8 +8,8 @@ public class Operations implements Functions{
     List<Admins> admin;
     List <Hotels> hotelList = new ArrayList<>();
     List <Customers> customersList = new ArrayList<>();
-    List <BookingLog> bookingLog = new ArrayList<>();
-    List <History> history = new ArrayList<>();
+    List <BookingLogs> bookingLog = new ArrayList<>();
+    List <Histories> history = new ArrayList<>();
 
 
 // Show menu functions
@@ -26,8 +26,9 @@ public class Operations implements Functions{
                     "\n3. Press 3 to exit.");
             // input validation
             do {
+                localInput = input.nextInt();
                 if (input.hasNextInt()) {
-                    localInput = input.nextInt();
+
                     isInteger = true;
 
                     if(localInput == 1) {
@@ -87,7 +88,7 @@ public class Operations implements Functions{
                 }else if(localInput == 5){
 
                 }else if(localInput == 6){
-
+                    break;
                 }
 
             } else {
@@ -139,13 +140,13 @@ public class Operations implements Functions{
                 "\n3. Press 3 to check available booking." +
                 "\n4. Press 4 to update booking." +             // Edit booking or delete booking
                 "\n5. Press 5 to delete a hotel." +
-                "\n7. Press 7 to delete all hotels" +
-                "\n8. Press 8 to exit."
+                "\n6. Press 6 to delete all hotels" +
+                "\n7. Press 7 to exit."
         );
 
         do {
+            localInput = adminInput.nextInt();
             if (adminInput.hasNextInt()) {
-                localInput = adminInput.nextInt();
                 isInteger = true;
 
                 if(localInput == 1) {
@@ -199,6 +200,8 @@ public class Operations implements Functions{
                 }else if(localInput == 5){
 
                 }else if(localInput == 6){
+
+                }else if(localInput == 7){
 
                 }
 
