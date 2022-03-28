@@ -18,7 +18,7 @@ public abstract class HotelsFile extends DataManagement implements Serializable 
             objectOutputStream.writeObject(hotels);
             objectOutputStream.close();
 
-            System.out.println("Hotel Data saved");
+            System.out.println("Hotels Data saved");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
