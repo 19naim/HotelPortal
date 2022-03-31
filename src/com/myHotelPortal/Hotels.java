@@ -1,6 +1,8 @@
 package com.myHotelPortal;
 
-public class Hotels {
+import java.io.Serializable;
+
+public class Hotels implements Serializable {
     private String hotelName;
     private String hotelLocation;
     private int totalRooms;
@@ -16,6 +18,10 @@ public class Hotels {
         this.totalSingleRooms = totalSingleRooms;
         this.totalDoubleRooms = totalDoubleRooms;
         this.totalPresidentialSuit = totalPresidentialSuit;
+    }
+
+    public Hotels(){
+
     }
 
     public String getHotelName() {
