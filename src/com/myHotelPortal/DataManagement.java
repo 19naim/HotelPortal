@@ -6,8 +6,8 @@ import java.util.List;
 
 public abstract class DataManagement{
     public abstract void saveHotelsDataInFile(List<Hotels> hotels) throws FileNotFoundException;
-    /*public abstract void saveCustomersDataInFile(List<Customers> customers) throws FileNotFoundException;
-    public abstract void saveAdminsDataInFile(List<Admins> admins) throws FileNotFoundException;
+    public abstract void saveCustomersDataInFile(List<Customers> customers) throws FileNotFoundException;
+   /* public abstract void saveAdminsDataInFile(List<Admins> admins) throws FileNotFoundException;
     public abstract void saveBookingLogsDataInFile(List<BookingLogs> bookingLogs) throws FileNotFoundException;
     public abstract void saveHistoriesDataInFile(List<Histories> histories) throws FileNotFoundException;*/
 
@@ -46,7 +46,7 @@ public abstract class DataManagement{
                 objectinputstream = new ObjectInputStream(streamIn);
                 customers = (List<Customers>) objectinputstream.readObject();
                 objectinputstream .close();
-                System.out.println("Data extracted from Hotel file...");
+                System.out.println("Data extracted from Customer file...");
             } catch (Exception e) {
                 e.printStackTrace();
             }

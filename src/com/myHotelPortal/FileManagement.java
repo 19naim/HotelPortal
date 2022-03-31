@@ -18,14 +18,14 @@ public class FileManagement extends DataManagement{
             objectOutputStream.writeObject(hotels);
             objectOutputStream.close();
 
-            System.out.println("Hotels Data saved");
+            System.out.println("Hotels Data saved....");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
     }
 //function for saving customer data
-   /* @Override
+    @Override
     public void saveCustomersDataInFile(List<Customers> customers) throws FileNotFoundException {
 
         ObjectOutputStream objectOutputStream = null;
@@ -36,13 +36,14 @@ public class FileManagement extends DataManagement{
             objectOutputStream.writeObject(customers);
             objectOutputStream.close();
 
-            System.out.println("Hotel Data saved");
+            System.out.println("Customer Data saved.....");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
     }
     //function for saving admin data
+    /*
     @Override
     public void saveAdminsDataInFile(List<Admins> admins) throws FileNotFoundException {
         ObjectOutputStream objectOutputStream = null;

@@ -7,11 +7,11 @@ import java.util.Scanner;
 
 public class Operations implements Functions{
 
-    public List<Admins> admin = new ArrayList<>();
+    public List<Admins> admin = new ArrayList<Admins>();
     public List<Hotels> hotelList = new ArrayList<Hotels>();
-    public List<Customers> customersList = new ArrayList<>();
-    public List<BookingLogs> bookingLog = new ArrayList<>();
-    public List<Histories> history = new ArrayList<>();
+    public List<Customers> customersList = new ArrayList<Customers>();
+    public List<BookingLogs> bookingLog = new ArrayList<BookingLogs>();
+    public List<Histories> history = new ArrayList<Histories>();
 
 
 
@@ -58,12 +58,13 @@ public class Operations implements Functions{
     private void adminMenu() {
         FileManagement fm = new FileManagement();
         //loading data from file
-         hotelList = fm.rtvHotelData("Hotels.txt");
+        hotelList = fm.rtvHotelData("Hotels.txt");
+        customersList = fm.rtvCustomersData("Customers.txt");
         Scanner adminInput = new Scanner(System.in);
         int localInput = 0;
         //boolean isInteger = true;
 
-        while (localInput != 7) {
+        while (localInput != 10) {
             System.out.println("!!!Welcome to the Admin panel!!!");
             System.out.println(
                     "Please select from the following menu" +
@@ -71,10 +72,13 @@ public class Operations implements Functions{
                             "\n1. Press 1 to see available hotels. " +
                             "\n2. press 2 to insert new hotel." +
                             "\n3. Press 3 to check available booking." +
-                            "\n4. Press 4 to update booking." +             // Edit booking or delete booking
-                            "\n5. Press 5 to delete a hotel." +
-                            "\n6. Press 6 to delete all hotels" +
-                            "\n7. Press 7 to exit."
+                            "\n4. Press 4 to update booking." +                 // Edit booking or delete booking
+                            "\n5. Press 5 to check registered customers" +
+                            "\n6. Press 6 to delete one customer" +
+                            "\n7. Press 7 to delete all the customers" +
+                            "\n8. Press 5 to delete a hotel." +
+                            "\n9. Press 6 to delete all hotels" +
+                            "\n10. Press 10 to exit."
             );
             localInput = adminInput.nextInt();
 
@@ -105,11 +109,11 @@ public class Operations implements Functions{
 
 
                 System.out.println("Enter the name of the Hotel.");
-                hotelName = adminInput.next();
+                hotelName = adminInput.nextLine();
                 ht.setHotelName(hotelName);
 
                 System.out.println("Enter Place of the hotel");
-                place = adminInput.next();
+                place = adminInput.nextLine();
                 ht.setHotelLocation(place);
 
                 System.out.println("Enter total number of rooms.");
@@ -149,6 +153,14 @@ public class Operations implements Functions{
             } else if (localInput == 4) {
 
             } else if (localInput == 5) {
+                System.out.println("All the registered customers are listed below:");
+                for (int i = 0; i < customersList.size(); i++) {
+                    System.out.println("Name:" +customersList.get(i).getCustomerName());
+                    System.out.println("Address:" +customersList.get(i).getCustomerAddress());
+                    System.out.println("Email:" +customersList.get(i).getCustomerEmail());
+                    System.out.println("Phone:" +customersList.get(i).getCustomerPhone());
+                    System.out.println("Id:" +customersList.get(i).getCustomerId());
+                }
 
             } else if (localInput == 6) {
 
@@ -165,80 +177,138 @@ public class Operations implements Functions{
 
     // Customer Menu
     private void customerMenu() {
-
+        //loading data from file
+        FileManagement fm = new FileManagement();
+        hotelList = fm.rtvHotelData("Hotels.txt");
+        customersList = fm.rtvCustomersData("Customers.txt");
         Scanner input = new Scanner(System.in);
+
         int localInput = 0;
-        boolean isInteger = true;
 
-        System.out.println("!!!Welcome to the Customer panel!!!");
-        System.out.println(
-                "Please select from the following menu" +
+        while(localInput != 6) {
+            System.out.println("!!!Welcome to the Customer panel!!!");
+            System.out.println(
+                    "Please select from the following menu" +
 
-                        "\n1. Press 1 to see available hotels. " +
-                        "\n2. press 2 to book a hotel room." +
-                        "\n3. Press 3 to check your booking." +
-                        "\n4. Press 4 to update your booking." +
-                        "\n5. Press 5 to cancel your booking." +
-                        "\n6. Press 6 to exit."
-        );
-
-
-            if (input.hasNextInt()) {
-                localInput = input.nextInt();
-                isInteger = true;
-
-                if (localInput == 1) {
-
-                } else if (localInput == 2) {
-
-                    System.out.println("1. Press 1 if you are a new customer");
+                            "\n1. Press 1 to see available hotels. " +
+                            "\n2. press 2 to book a hotel room." +
+                            "\n3. Press 3 to check your booking." +
+                            "\n4. Press 4 to update your booking." +
+                            "\n5. Press 5 to cancel your booking." +
+                            "\n6. Press 6 to exit."
+            );
 
 
-                } else if (localInput == 3) {
+            localInput = input.nextInt();
 
-                } else if (localInput == 4) {
 
-                } else if (localInput == 5) {
-
-                } else if (localInput == 6) {
-
+            if (localInput == 1) {
+                System.out.println("All the hotel listed below");
+                for (int i = 0; i < hotelList.size(); i++) {
+                    System.out.println("Hotel Name:" + hotelList.get(i).getHotelName());
+                    System.out.println("Place:" + hotelList.get(i).getHotelLocation());
+                    System.out.println("Total Number of rooms:" + hotelList.get(i).getTotalRooms());
+                    System.out.println("Available single Rooms:" + hotelList.get(i).getTotalSingleRooms());
+                    System.out.println("Available double rooms:" + hotelList.get(i).getTotalDoubleRooms());
+                    System.out.println("Available Presidential suit:" + hotelList.get(i).getTotalPresidentialSuit());
                 }
 
+            } else if (localInput == 2) {
+                Scanner in = new Scanner(System.in);
+                int optInput = 0;
+
+                System.out.println("1. Press 1 if you are new to the Hotel Portal" +
+                        "\n2. Press 2 if you already have an account");
+                    optInput = in.nextInt();
+                    if(optInput == 1){
+                        addCustomer();
+                    }else if(optInput == 2){
+                        String name;
+                        String address;
+                        String email;
+                        long phone;
+                        long id;
+                        System.out.println("Enter email:");
+                        email = in.nextLine();
+                        for (int i = 0; i < customersList.size(); i++) {
+                            if (customersList.get(i).getCustomerEmail().equals(email)){
+                                name = customersList.get(i).getCustomerName();
+                                address = customersList.get(i).getCustomerAddress();
+                                phone = customersList.get(i).getCustomerPhone();
+                                id = customersList.get(i).getCustomerId();
+
+                                //booking hotel
+                                bookRoom();
+
+                            }else {
+                                System.out.println("Wrong email address !!! Try again ....");
+                            }
+
+                        }
+
+                    }
+
+
+            } else if (localInput == 3) {
+
+            } else if (localInput == 4) {
+
+            } else if (localInput == 5) {
+
+            } else if (localInput == 6) {
+
             } else {
-                System.out.println("Input type mismatch, please insert an integer...");
-                isInteger = false;
-                input.next();
+
             }
 
-
+        }
     }
 
 
 
 
     private void addCustomer() {
+        FileManagement fm = new FileManagement();
         Scanner custInput = new Scanner(System.in);
-        Customers cust;
+        Customers cust = new Customers();
 
         String name;
         String address;
         String email;
         long phone;
-        boolean bookingStatus = false;
-        double id = 0;
+        long id = 0;
 
 
         System.out.println("Enter your name");
         name = custInput.nextLine();
+        cust.setCustomerName(name);
+
         System.out.println("Enter your address");
         address = custInput.nextLine();
+        cust.setCustomerAddress(address);
+
         System.out.println("Enter your email");
         email = custInput.nextLine();
+        cust.setCustomerEmail(email);
+
         System.out.println("Enter your phone");
         phone = custInput.nextLong();
+        cust.setCustomerPhone(phone);
 
-        cust = new Customers(name, address, email, phone, bookingStatus, id);
+        System.out.println("Enter your personal number:");
+        id = custInput.nextLong();
+        cust.setCustomerId(id);
+
         customersList.add(cust);
+
+        //saving in the file
+
+        try{
+            fm.saveCustomersDataInFile(customersList);
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -251,6 +321,7 @@ public class Operations implements Functions{
     }
 
     private void bookRoom(){
+
 
     }
 

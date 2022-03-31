@@ -1,49 +1,16 @@
 package com.myHotelPortal;
 
-public class Customers {
+import java.io.Serializable;
+
+public class Customers implements Serializable {
     private String customerName;
     private String customerAddress;
     private String customerEmail;
     private long customerPhone;
-    private boolean bookingStatus;
-    private double customerId;
+    private long customerId;
 
-    private int custTotalRooms;
-    private int custTotalSingleRooms;
-    private int custTotalDoubleRooms;
-    private int custTotalPresidentialSuit;
+    Customers(){
 
-    public Customers(String customerName, String customerAddress, String customerEmail, long customerPhone, boolean bookingStatus, double customerId) {
-        this.customerName = customerName;
-        this.customerAddress = customerAddress;
-        this.customerEmail = customerEmail;
-        this.customerPhone = customerPhone;
-        this.bookingStatus = bookingStatus;
-        this.customerId = customerId;
-    }
-
-    public Customers(String customerName, String customerAddress, String customerEmail, long customerPhone, boolean bookingStatus, int custTotalRooms, int custTotalSingleRooms) {
-        this.customerName = customerName;
-        this.customerAddress = customerAddress;
-        this.customerEmail = customerEmail;
-        this.customerPhone = customerPhone;
-        this.bookingStatus = bookingStatus;
-        this.custTotalRooms = custTotalRooms;
-        this.custTotalSingleRooms = custTotalSingleRooms;
-    }
-
-
-
-    public Customers(String customerName, String customerAddress, String customerEmail, long customerPhone, boolean bookingStatus, int custTotalRooms, int custTotalSingleRooms, int custTotalDoubleRooms, int custTotalPresidentialSuit) {
-        this.customerName = customerName;
-        this.customerAddress = customerAddress;
-        this.customerEmail = customerEmail;
-        this.customerPhone = customerPhone;
-        this.bookingStatus = bookingStatus;
-        this.custTotalRooms = custTotalRooms;
-        this.custTotalSingleRooms = custTotalSingleRooms;
-        this.custTotalDoubleRooms = custTotalDoubleRooms;
-        this.custTotalPresidentialSuit = custTotalPresidentialSuit;
     }
 
     public String getCustomerName() {
@@ -70,7 +37,7 @@ public class Customers {
         this.customerEmail = customerEmail;
     }
 
-    public double getCustomerPhone() {
+    public long getCustomerPhone() {
         return customerPhone;
     }
 
@@ -78,43 +45,14 @@ public class Customers {
         this.customerPhone = customerPhone;
     }
 
-    public boolean getBookingStatus() {
-        return bookingStatus;
+    public long getCustomerId() {
+        return customerId;
     }
 
-    public void setBookingStatus(boolean bookingStatus) {
-        this.bookingStatus = bookingStatus;
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
     }
 
-    public int getCustTotalRooms() {
-        return custTotalRooms;
-    }
 
-    public void setCustTotalRooms(int custTotalRooms) {
-        this.custTotalRooms = custTotalRooms;
-    }
 
-    public int getCustTotalSingleRooms() {
-        return custTotalSingleRooms;
-    }
-
-    public void setCustTotalSingleRooms(int custTotalSingleRooms) {
-        this.custTotalSingleRooms = custTotalSingleRooms;
-    }
-
-    public int getCustTotalDoubleRooms() {
-        return custTotalDoubleRooms;
-    }
-
-    public void setCustTotalDoubleRooms(int custTotalDoubleRooms) {
-        this.custTotalDoubleRooms = custTotalDoubleRooms;
-    }
-
-    public int getCustTotalPresidentialSuit() {
-        return custTotalPresidentialSuit;
-    }
-
-    public void setCustTotalPresidentialSuit(int custTotalPresidentialSuit) {
-        this.custTotalPresidentialSuit = custTotalPresidentialSuit;
-    }
 }
