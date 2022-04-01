@@ -42,24 +42,9 @@ public class FileManagement extends DataManagement{
         }
 
     }
-    //function for saving admin data
-    /*
-    @Override
-    public void saveAdminsDataInFile(List<Admins> admins) throws FileNotFoundException {
-        ObjectOutputStream objectOutputStream = null;
-        FileOutputStream fileOutputStream = null;
-        try{
-            fileOutputStream = new FileOutputStream("Admins.txt", false);
-            objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(admins);
-            objectOutputStream.close();
 
-            System.out.println("Admins Data saved");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
 
-    }
+
     //function for saving bookingLog data
     @Override
     public void saveBookingLogsDataInFile(List<BookingLogs> bookingLogs) throws FileNotFoundException {
@@ -73,6 +58,24 @@ public class FileManagement extends DataManagement{
             objectOutputStream.close();
 
             System.out.println("BookingLogs Data saved");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+     //function for saving admin data
+     /*
+     @Override
+    public void saveAdminsDataInFile(List<Admins> admins) throws FileNotFoundException {
+        ObjectOutputStream objectOutputStream = null;
+        FileOutputStream fileOutputStream = null;
+        try{
+            fileOutputStream = new FileOutputStream("Admins.txt", false);
+            objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(admins);
+            objectOutputStream.close();
+
+            System.out.println("Admins Data saved");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

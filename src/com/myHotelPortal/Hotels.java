@@ -7,18 +7,13 @@ public class Hotels implements Serializable {
     private String hotelLocation;
     private int totalRooms;
     private int totalSingleRooms;
+    private double slRmPrPrNight;
     private int totalDoubleRooms;
+    private double dblRmPrNight;
     private int totalPresidentialSuit;
+    private double pdrsdtStPrNight;
 
 
-    public Hotels(String hotelName, String hotelLocation, int totalRooms, int totalSingleRooms, int totalDoubleRooms, int totalPresidentialSuit) {
-        this.hotelName = hotelName;
-        this.hotelLocation = hotelLocation;
-        this.totalRooms = totalRooms;
-        this.totalSingleRooms = totalSingleRooms;
-        this.totalDoubleRooms = totalDoubleRooms;
-        this.totalPresidentialSuit = totalPresidentialSuit;
-    }
 
     public Hotels(){
 
@@ -83,4 +78,27 @@ public class Hotels implements Serializable {
         this.totalPresidentialSuit = totalPresidentialSuit;
     }
 
+    public double getSlRmPrPrNight() {
+        return slRmPrPrNight;
+    }
+
+    public void setSlRmPrPrNight(double slRmPrPrNight) {
+        this.slRmPrPrNight = slRmPrPrNight;
+    }
+
+    public double getDblRmPrNight() {
+        return dblRmPrNight;
+    }
+
+    public void setDblRmPrNight(double dblRmPrNight) {
+        this.dblRmPrNight = dblRmPrNight;
+    }
+
+    public double getPdrsdtStPrNight() {
+        return pdrsdtStPrNight;
+    }
+
+    public void setPdrsdtStPrNight(double pdrsdtStPrNight) {
+        this.pdrsdtStPrNight = pdrsdtStPrNight;
+    }
 }
