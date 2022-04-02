@@ -61,6 +61,7 @@ public class Operations implements Functions{
         //loading data from file
         hotelList = fm.rtvHotelData("Hotels.txt");
         customersList = fm.rtvCustomersData("Customers.txt");
+        bookingLogList = fm.rtvBookingLogsData("BookingLogs.txt");
         Scanner adminInput = new Scanner(System.in);
         int localInput = 0;
         //boolean isInteger = true;
@@ -86,18 +87,7 @@ public class Operations implements Functions{
 
             // display available hotels
             if (localInput == 1) {
-                System.out.println("All the hotel listed below");
-                for (int i = 0; i < hotelList.size(); i++) {
-                    System.out.println("Hotel Name:" + hotelList.get(i).getHotelName());
-                    System.out.println("Place:" + hotelList.get(i).getHotelLocation());
-                    System.out.println("Total Number of rooms:" + hotelList.get(i).getTotalRooms());
-                    System.out.println("Available single Rooms:" + hotelList.get(i).getTotalSingleRooms());
-                    System.out.println("Single room price per night:" +hotelList.get(i).getSlRmPrPrNight());
-                    System.out.println("Available double rooms:" + hotelList.get(i).getTotalDoubleRooms());
-                    System.out.println("Double room price per night:" +hotelList.get(i).getDblRmPrNight());
-                    System.out.println("Available Presidential suit:" + hotelList.get(i).getTotalPresidentialSuit());
-                    System.out.println("Presidential suit price per night:" +hotelList.get(i).getPdrsdtStPrNight());
-                }
+                showAvailableHotel();
             }
 
             //insert new hotels to the portal
@@ -263,18 +253,7 @@ public class Operations implements Functions{
 
 
             if (localInput == 1) {
-                System.out.println("All the hotel listed below");
-                for (int i = 0; i < hotelList.size(); i++) {
-                    System.out.println("Hotel Name:" + hotelList.get(i).getHotelName());
-                    System.out.println("Place:" + hotelList.get(i).getHotelLocation());
-                    System.out.println("Total Number of rooms:" + hotelList.get(i).getTotalRooms());
-                    System.out.println("Available single Rooms:" + hotelList.get(i).getTotalSingleRooms());
-                    System.out.println("Single room price per night:" +hotelList.get(i).getSlRmPrPrNight());
-                    System.out.println("Available double rooms:" + hotelList.get(i).getTotalDoubleRooms());
-                    System.out.println("Double room price per night:" +hotelList.get(i).getDblRmPrNight());
-                    System.out.println("Available Presidential suit:" + hotelList.get(i).getTotalPresidentialSuit());
-                    System.out.println("Presidential suit price per night:" +hotelList.get(i).getPdrsdtStPrNight());
-                }
+               showAvailableHotel();
 
             } else if (localInput == 2) {
                 Scanner in = new Scanner(System.in);
@@ -357,11 +336,25 @@ public class Operations implements Functions{
 
 
 
-
+// Show available Hotel
     private void showAvailableHotel(){
+        System.out.println("All the hotel listed below");
+        for (int i = 0; i < hotelList.size(); i++) {
+            System.out.println("Hotel Name:" + hotelList.get(i).getHotelName());
+            System.out.println("Place:" + hotelList.get(i).getHotelLocation());
+            System.out.println("Total Number of rooms:" + hotelList.get(i).getTotalRooms());
+            System.out.println("Available single Rooms:" + hotelList.get(i).getTotalSingleRooms());
+            System.out.println("Single room price per night:" +hotelList.get(i).getSlRmPrPrNight());
+            System.out.println("Available double rooms:" + hotelList.get(i).getTotalDoubleRooms());
+            System.out.println("Double room price per night:" +hotelList.get(i).getDblRmPrNight());
+            System.out.println("Available Presidential suit:" + hotelList.get(i).getTotalPresidentialSuit());
+            System.out.println("Presidential suit price per night:" +hotelList.get(i).getPdrsdtStPrNight());
+        }
 
     }
 
+
+    // book rooms
     private void bookRoom(){
         Hotels ht = new Hotels();
         BookingLogs bl = new BookingLogs();
@@ -373,7 +366,7 @@ public class Operations implements Functions{
         String email;
         long phone;
         long id;
-
+// extract price file and store here
         double  sglRmCost = 0;
         double dblRmCost = 0;
         double pdsCost = 0 ;
@@ -442,9 +435,25 @@ public class Operations implements Functions{
                     e.printStackTrace();
                 }
 
+                //update to the Hotel room
+
+                for (int j = 0; j < hotelList.size(); j++) {
+                    if(hotelList.get(i).getHotelName().equals(hotelName)){
+                        hotelList.get(i).setTotalSingleRooms(hotelList.get(i).getTotalSingleRooms()-singleRoom);
+                        hotelList.get(i).setTotalDoubleRooms(hotelList.get(i).getTotalDoubleRooms()-doubleRoom);
+                        hotelList.get(i).setTotalPresidentialSuit(hotelList.get(i).getTotalPresidentialSuit()-prsdntSuit);
+                        hotelList.get(i).setTotalRooms(hotelList.get(i).getTotalRooms()-(singleRoom+doubleRoom+prsdntSuit));
+                    }
+                }
+                // update to the hotel file
+                try{
+                    fm.saveHotelsDataInFile(hotelList);
+                    //System.out.println("Booking Confirmed :)");
+                }catch (FileNotFoundException e){
+                    e.printStackTrace();
+                }
 
                 //update to the History
-                //update to the Hotel
 
             }else {
                 System.out.println("Wrong email address !!! Try again ....");
@@ -454,4 +463,35 @@ public class Operations implements Functions{
 
 
   }
+
+  // edit one specific booking
+    private void editBooking(){
+
+    }
+
+
+  //cancel one specific booking
+    private void cancelBooking(){
+        Scanner in = new Scanner(System.in);
+
+        String custName;
+        String hotelName;
+
+
+        System.out.println("Enter customer email:");
+            custName = in.nextLine();
+
+        System.out.println("Enter hotel name:");
+            hotelName = in.nextLine();
+
+        /*for (int i = 0; i < ; i++) {
+
+        }   */
+
+    }
+
+    // Show history function
+    private void showHistory(){
+
+    }
 }

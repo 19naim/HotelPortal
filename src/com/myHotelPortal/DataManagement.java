@@ -9,7 +9,7 @@ public abstract class DataManagement{
     public abstract void saveCustomersDataInFile(List<Customers> customers) throws FileNotFoundException;
     //public abstract void saveAdminsDataInFile(List<Admins> admins) throws FileNotFoundException;
     public abstract void saveBookingLogsDataInFile(List<BookingLogs> bookingLogs) throws FileNotFoundException;
-    //public abstract void saveHistoriesDataInFile(List<Histories> histories) throws FileNotFoundException;
+    public abstract void saveHistoriesDataInFile(List<Histories> histories) throws FileNotFoundException;
 
 
     //
@@ -89,7 +89,7 @@ public abstract class DataManagement{
                 objectinputstream = new ObjectInputStream(streamIn);
                 bookingLogs = (List<BookingLogs>) objectinputstream.readObject();
                 objectinputstream .close();
-                System.out.println("Data extracted from Hotel file...");
+                System.out.println("Data extracted from BookingLog file...");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -110,7 +110,7 @@ public abstract class DataManagement{
                 objectinputstream = new ObjectInputStream(streamIn);
                 histories = (List<Histories>) objectinputstream.readObject();
                 objectinputstream .close();
-                System.out.println("Data extracted from Hotel file...");
+                System.out.println("Data extracted from History file...");
             } catch (Exception e) {
                 e.printStackTrace();
             }
