@@ -67,7 +67,7 @@ public class Operations implements Functions{
         int localInput = 0;
         //boolean isInteger = true;
 
-        while (localInput != 11) {
+        while (localInput != 12) {
             System.out.println("\n\n!!!Welcome to the Admin panel!!!");
             System.out.println(
                     "Please select from the following menu" +
@@ -82,7 +82,8 @@ public class Operations implements Functions{
                             "\n8. Press 8 to delete a hotel." +
                             "\n9. Press 9 to delete all hotels" +
                             "\n10. press 10 to see histories " +
-                            "\n11. Press 11 to exit."
+                            "\n11. Press 11 to edit booking." +
+                            "\n12. Press 12 to exit"
             );
             localInput = adminInput.nextInt();
 
@@ -188,6 +189,19 @@ public class Operations implements Functions{
                 }
 
             } else if (localInput == 6) {
+                // Delete one customer by admin
+                Scanner in = new Scanner(System.in);
+                String custEmail;
+                System.out.println("Enter customer email:");
+                    custEmail = in.nextLine();
+
+                for (int i = 0; i < customersList.size(); i++) {
+                    if(customersList.get(i).getCustomerEmail().equals(custEmail)){
+                        customersList.remove(i);
+                    }
+                }
+
+                cancelBooking();
 
             } else if (localInput == 7) {
                 for (int i = 0; i < customersList.size(); i++) {
@@ -202,6 +216,35 @@ public class Operations implements Functions{
                 }
 
             } else if(localInput == 8){
+                // delete one hotel by admin
+                Scanner in = new Scanner(System.in);
+                String hotelName;
+                System.out.println("Enter hotel name:");
+                hotelName = in.nextLine();
+                for (int i = 0; i < hotelList.size(); i++) {
+                    if(hotelList.get(i).getHotelName().equals(hotelName)){
+                        hotelList.remove(i);
+                    }
+                }
+
+                try{
+                    fm.saveHotelsDataInFile(hotelList);
+                }catch (FileNotFoundException e){
+                    e.printStackTrace();
+                }
+
+                // removing all booking from that particular hotel
+                for (int i = 0; i < bookingLogList.size(); i++) {
+                    if(bookingLogList.get(i).getHotelName().equals(hotelName)){
+                        bookingLogList.remove(i);
+                    }
+                }
+
+                try{
+                    fm.saveBookingLogsDataInFile(bookingLogList);
+                }catch (FileNotFoundException e){
+                    e.printStackTrace();
+                }
 
             } else if(localInput == 9) {
                 // admin deleting all the hotels
@@ -220,6 +263,9 @@ public class Operations implements Functions{
                 showHistory();
 
             }else if(localInput == 11){
+               editBooking();
+
+            }else if(localInput == 12){
                 System.out.println("Getting out from admin menu..");
             }
             else {
@@ -237,6 +283,8 @@ public class Operations implements Functions{
         FileManagement fm = new FileManagement();
         hotelList = fm.rtvHotelData("Hotels.txt");
         customersList = fm.rtvCustomersData("Customers.txt");
+        bookingLogList = fm.rtvBookingLogsData("BookingLogs.txt");
+
         Scanner input = new Scanner(System.in);
 
         int localInput = 0;
@@ -276,30 +324,16 @@ public class Operations implements Functions{
 
 
             } else if (localInput == 3) {
-                Scanner in = new Scanner(System.in);
-                String custEmail;
+                showOneBooking();
 
-                System.out.println("Enter email address:");
-                    custEmail = in.nextLine();
-                for (int i = 0; i < bookingLogList.size(); i++) {
-                    if(bookingLogList.get(i).getCustomerEmail().equals(custEmail)){
-                        System.out.println("Customer name:" +bookingLogList.get(i).getCustomerName());
-                        System.out.println("Customer email:" +bookingLogList.get(i).getCustomerEmail());
-                        System.out.println("Hotel name:" +bookingLogList.get(i).getHotelName());
-                        System.out.println("Hotel Location:" +bookingLogList.get(i).getLocation());
-                        System.out.println("Single room:" +bookingLogList.get(i).getNumberOfSingleRoom()) ;
-                        System.out.println("Double room:" +bookingLogList.get(i).getNumberOfDoubleRoom());
-                        System.out.println("Presidential suit:" +bookingLogList.get(i).getNumberOfPrcdntSuit());
-                        System.out.println("Total cost:" +bookingLogList.get(i).getTotalCost());
-                    }
-                }
             } else if (localInput == 4) {
+                    editBooking();
 
             } else if (localInput == 5) {
                     cancelBooking();
 
             } else if (localInput == 6) {
-
+                System.out.println("Getting out from customer menu ....");
             } else {
 
             }
@@ -508,6 +542,98 @@ public class Operations implements Functions{
 
   // edit one specific booking
     private void editBooking(){
+        FileManagement fm = new FileManagement();
+        Scanner in = new Scanner(System.in);
+
+        showOneBooking();
+
+
+        String custEmail;
+
+        String exHotelName = null;
+        int exNumSingleRoom;
+        double exSglRoomCost = 0;
+        int exNumDoubleRoom;
+        double exDoubleRoomCost = 0;
+        int exNumPdSuit;
+        double exPdCost = 0;
+
+
+        int numSingleRoom;
+        int numDoubleRoom;
+        int numPdSuit;
+
+
+        System.out.println("");
+
+        System.out.println("Enter customer email again:");
+            custEmail = in.nextLine();
+        System.out.println("To edit your booking choose from the following menu:");
+
+        System.out.println("Put desire number of single room:");
+            numSingleRoom = in.nextInt();
+
+        System.out.println("Put desire number of double room:");
+            numDoubleRoom = in.nextInt();
+
+        System.out.println("Put desire number of president suit:");
+            numPdSuit = in.nextInt();
+
+        for (int i = 0; i < bookingLogList.size(); i++) {
+            if(bookingLogList.get(i).getCustomerEmail().equals(custEmail)){
+                if((numSingleRoom == 0) && (numDoubleRoom == 0) && (numPdSuit == 0)){
+                    cancelBooking();
+                }else
+//extracting existing booking data
+                exHotelName = bookingLogList.get(i).getHotelName();
+                exNumSingleRoom = bookingLogList.get(i).getNumberOfSingleRoom();
+                exNumDoubleRoom = bookingLogList.get(i).getNumberOfDoubleRoom();
+                exNumPdSuit = bookingLogList.get(i).getNumberOfPrcdntSuit();
+
+
+                for (int j = 0; j < hotelList.size(); j++) {
+                    if(hotelList.get(j).getHotelName().equals(exHotelName)){
+// returning room like before
+                        hotelList.get(i).setTotalRooms(hotelList.get(i).getTotalRooms()+exNumSingleRoom+exNumDoubleRoom+exNumPdSuit);
+                        hotelList.get(j).setTotalSingleRooms(hotelList.get(i).getTotalSingleRooms()+exNumSingleRoom);
+                        hotelList.get(i).setTotalDoubleRooms(hotelList.get(i).getTotalDoubleRooms()+exNumDoubleRoom);
+                        hotelList.get(i).setTotalPresidentialSuit(hotelList.get(i).getTotalPresidentialSuit()+exNumPdSuit);
+// extracting price of the room
+                        exSglRoomCost = hotelList.get(i).getSlRmPrPrNight();
+                        exDoubleRoomCost = hotelList.get(i).getDblRmPrNight();
+                        exPdCost = hotelList.get(i).getPdrsdtStPrNight();
+
+                    }
+                }
+// new booking data set
+            bookingLogList.get(i).setNumberOfSingleRoom(numSingleRoom);
+            bookingLogList.get(i).setNumberOfDoubleRoom(numDoubleRoom);
+            bookingLogList.get(i).setNumberOfPrcdntSuit(numPdSuit);
+            bookingLogList.get(i).setTotalCost(exSglRoomCost+exDoubleRoomCost+exPdCost);
+
+                for (int j = 0; j < hotelList.size(); j++) {
+                    if(hotelList.get(i).getHotelName().equals(exHotelName)){
+                        hotelList.get(i).setTotalSingleRooms(hotelList.get(i).getTotalSingleRooms()-numSingleRoom);
+                        hotelList.get(i).setTotalDoubleRooms(hotelList.get(i).getTotalDoubleRooms()-numDoubleRoom);
+                        hotelList.get(i).setTotalPresidentialSuit(hotelList.get(i).getTotalPresidentialSuit()-numPdSuit);
+                        hotelList.get(i).setTotalRooms(hotelList.get(i).getTotalRooms()-(numSingleRoom+numDoubleRoom+numPdSuit));
+                    }
+                }
+
+            }
+        }
+
+        try{
+            fm.saveBookingLogsDataInFile(bookingLogList);
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+        try{
+            fm.saveHotelsDataInFile(hotelList);
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -582,6 +708,26 @@ public class Operations implements Functions{
                     "\tDouble room:"+ historyList.get(i).getNoOfDoubleRoom()+
                     "\tPresidential suit:" + historyList.get(i).getNoOfPresidentialSuit()+
                     "\tTotal Cost SEK: " +historyList.get(i).getTotalCost());
+        }
+    }
+
+    private void showOneBooking(){
+        Scanner in = new Scanner(System.in);
+        String custEmail;
+
+        System.out.println("Enter email address:");
+        custEmail = in.nextLine();
+        for (int i = 0; i < bookingLogList.size(); i++) {
+            if(bookingLogList.get(i).getCustomerEmail().equals(custEmail)){
+                System.out.println("Customer name:" +bookingLogList.get(i).getCustomerName());
+                System.out.println("Customer email:" +bookingLogList.get(i).getCustomerEmail());
+                System.out.println("Hotel name:" +bookingLogList.get(i).getHotelName());
+                System.out.println("Hotel Location:" +bookingLogList.get(i).getLocation());
+                System.out.println("Single room:" +bookingLogList.get(i).getNumberOfSingleRoom()) ;
+                System.out.println("Double room:" +bookingLogList.get(i).getNumberOfDoubleRoom());
+                System.out.println("Presidential suit:" +bookingLogList.get(i).getNumberOfPrcdntSuit());
+                System.out.println("Total cost:" +bookingLogList.get(i).getTotalCost());
+            }
         }
     }
 }
