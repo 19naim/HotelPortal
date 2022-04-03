@@ -164,6 +164,7 @@ public class Operations implements Functions{
             // Check Available Bookings
             else if (localInput == 3) {
                 System.out.println("All the active booking listed below:");
+                System.out.println("===================================================================");
                 for (int i = 0; i < bookingLogList.size(); i++) {
                     System.out.println("Customer name:" +bookingLogList.get(i).getCustomerName());
                     System.out.println("Customer email:" +bookingLogList.get(i).getCustomerEmail());
@@ -173,6 +174,7 @@ public class Operations implements Functions{
                     System.out.println("Double room:" +bookingLogList.get(i).getNumberOfDoubleRoom());
                     System.out.println("Presidential suit:" +bookingLogList.get(i).getNumberOfPrcdntSuit());
                     System.out.println("Total cost:" +bookingLogList.get(i).getTotalCost());
+                    System.out.println("===================================================================");
                 }
 
             } else if (localInput == 4) {
@@ -180,12 +182,14 @@ public class Operations implements Functions{
 
             } else if (localInput == 5) {
                 System.out.println("All the registered customers are listed below:");
+                System.out.println("===================================================================");
                 for (int i = 0; i < customersList.size(); i++) {
                     System.out.println("Name:" +customersList.get(i).getCustomerName());
                     System.out.println("Address:" +customersList.get(i).getCustomerAddress());
                     System.out.println("Email:" +customersList.get(i).getCustomerEmail());
                     System.out.println("Phone:" +customersList.get(i).getCustomerPhone());
                     System.out.println("Id:" +customersList.get(i).getCustomerId());
+                    System.out.println("===================================================================");
                 }
 
             } else if (localInput == 6) {
@@ -396,6 +400,7 @@ public class Operations implements Functions{
 // Show available Hotel
     private void showAvailableHotel(){
         System.out.println("All the hotel listed below");
+        System.out.println("===================================================================");
         for (int i = 0; i < hotelList.size(); i++) {
             System.out.println("Hotel Name:" + hotelList.get(i).getHotelName());
             System.out.println("Place:" + hotelList.get(i).getHotelLocation());
@@ -406,6 +411,7 @@ public class Operations implements Functions{
             System.out.println("Double room price per night:" +hotelList.get(i).getDblRmPrNight());
             System.out.println("Available Presidential suit:" + hotelList.get(i).getTotalPresidentialSuit());
             System.out.println("Presidential suit price per night:" +hotelList.get(i).getPdrsdtStPrNight());
+            System.out.println("===================================================================");
         }
 
     }
@@ -497,11 +503,11 @@ public class Operations implements Functions{
                 //update to the Hotel room
 
                 for (int j = 0; j < hotelList.size(); j++) {
-                    if(hotelList.get(i).getHotelName().equals(hotelName)){
-                        hotelList.get(i).setTotalSingleRooms(hotelList.get(i).getTotalSingleRooms()-singleRoom);
-                        hotelList.get(i).setTotalDoubleRooms(hotelList.get(i).getTotalDoubleRooms()-doubleRoom);
-                        hotelList.get(i).setTotalPresidentialSuit(hotelList.get(i).getTotalPresidentialSuit()-prsdntSuit);
-                        hotelList.get(i).setTotalRooms(hotelList.get(i).getTotalRooms()-(singleRoom+doubleRoom+prsdntSuit));
+                    if(hotelList.get(j).getHotelName().equals(hotelName)){
+                        hotelList.get(j).setTotalSingleRooms(hotelList.get(j).getTotalSingleRooms()-singleRoom);
+                        hotelList.get(j).setTotalDoubleRooms(hotelList.get(j).getTotalDoubleRooms()-doubleRoom);
+                        hotelList.get(j).setTotalPresidentialSuit(hotelList.get(j).getTotalPresidentialSuit()-prsdntSuit);
+                        hotelList.get(j).setTotalRooms(hotelList.get(j).getTotalRooms()-(singleRoom+doubleRoom+prsdntSuit));
                     }
                 }
                 // update to the hotel file
@@ -699,6 +705,7 @@ public class Operations implements Functions{
     // Show history function
     private void showHistory(){
         System.out.println("All the history listed below:");
+        System.out.println("===================================================================");
         for (int i = 0; i < historyList.size(); i++) {
             System.out.println("\n\nCustomer name:"+ historyList.get(i).getCustomerName()+
                     "\tCustomer email:"+ historyList.get(i).getCustomerEmail()+
@@ -708,6 +715,7 @@ public class Operations implements Functions{
                     "\tDouble room:"+ historyList.get(i).getNoOfDoubleRoom()+
                     "\tPresidential suit:" + historyList.get(i).getNoOfPresidentialSuit()+
                     "\tTotal Cost SEK: " +historyList.get(i).getTotalCost());
+            System.out.println("===================================================================");
         }
     }
 
