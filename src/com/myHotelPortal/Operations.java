@@ -11,7 +11,7 @@ public class Operations implements Functions{
     public List<Hotels> hotelList = new ArrayList<Hotels>();
     public List<Customers> customersList = new ArrayList<Customers>();
     public List<BookingLogs> bookingLogList = new ArrayList<BookingLogs>();
-    public List<Histories> history = new ArrayList<Histories>();
+    public List<Histories> historyList = new ArrayList<Histories>();
 
 
 
@@ -62,11 +62,12 @@ public class Operations implements Functions{
         hotelList = fm.rtvHotelData("Hotels.txt");
         customersList = fm.rtvCustomersData("Customers.txt");
         bookingLogList = fm.rtvBookingLogsData("BookingLogs.txt");
+        historyList = fm.rtvHistoriesData("Histories.txt");
         Scanner adminInput = new Scanner(System.in);
         int localInput = 0;
         //boolean isInteger = true;
 
-        while (localInput != 10) {
+        while (localInput != 11) {
             System.out.println("\n\n!!!Welcome to the Admin panel!!!");
             System.out.println(
                     "Please select from the following menu" +
@@ -74,13 +75,14 @@ public class Operations implements Functions{
                             "\n1. Press 1 to see available hotels. " +
                             "\n2. press 2 to insert new hotel." +
                             "\n3. Press 3 to check available booking." +
-                            "\n4. Press 4 to update booking." +                 // Edit booking or delete booking
+                            "\n4. Press 4 to delete booking." +                 // Edit booking or delete booking
                             "\n5. Press 5 to check registered customers" +
                             "\n6. Press 6 to delete one customer" +
                             "\n7. Press 7 to delete all the customers" +
                             "\n8. Press 8 to delete a hotel." +
                             "\n9. Press 9 to delete all hotels" +
-                            "\n10. Press 10 to exit."
+                            "\n10. press 10 to see histories " +
+                            "\n11. Press 11 to exit."
             );
             localInput = adminInput.nextInt();
 
@@ -173,6 +175,7 @@ public class Operations implements Functions{
                 }
 
             } else if (localInput == 4) {
+                cancelBooking();
 
             } else if (localInput == 5) {
                 System.out.println("All the registered customers are listed below:");
@@ -214,6 +217,9 @@ public class Operations implements Functions{
                 }
 
             }else if(localInput == 10){
+                showHistory();
+
+            }else if(localInput == 11){
                 System.out.println("Getting out from admin menu..");
             }
             else {
@@ -270,10 +276,27 @@ public class Operations implements Functions{
 
 
             } else if (localInput == 3) {
+                Scanner in = new Scanner(System.in);
+                String custEmail;
 
+                System.out.println("Enter email address:");
+                    custEmail = in.nextLine();
+                for (int i = 0; i < bookingLogList.size(); i++) {
+                    if(bookingLogList.get(i).getCustomerEmail().equals(custEmail)){
+                        System.out.println("Customer name:" +bookingLogList.get(i).getCustomerName());
+                        System.out.println("Customer email:" +bookingLogList.get(i).getCustomerEmail());
+                        System.out.println("Hotel name:" +bookingLogList.get(i).getHotelName());
+                        System.out.println("Hotel Location:" +bookingLogList.get(i).getLocation());
+                        System.out.println("Single room:" +bookingLogList.get(i).getNumberOfSingleRoom()) ;
+                        System.out.println("Double room:" +bookingLogList.get(i).getNumberOfDoubleRoom());
+                        System.out.println("Presidential suit:" +bookingLogList.get(i).getNumberOfPrcdntSuit());
+                        System.out.println("Total cost:" +bookingLogList.get(i).getTotalCost());
+                    }
+                }
             } else if (localInput == 4) {
 
             } else if (localInput == 5) {
+                    cancelBooking();
 
             } else if (localInput == 6) {
 
@@ -358,6 +381,8 @@ public class Operations implements Functions{
     private void bookRoom(){
         Hotels ht = new Hotels();
         BookingLogs bl = new BookingLogs();
+        Histories hs = new Histories();
+
         FileManagement fm = new FileManagement();
         Scanner in = new Scanner(System.in);
 
@@ -454,9 +479,26 @@ public class Operations implements Functions{
                 }
 
                 //update to the History
+                hs.setCustomerName(name);
+                hs.setCustomerEmail(email);
+                hs.setHotelName(hotelName);
+                hs.setHotelLocation(hotelLocation);
+                hs.setNoOfSingleRoom(singleRoom);
+                hs.setNoOfDoubleRoom(doubleRoom);
+                hs.setNoOfPresidentialSuit(prsdntSuit);
+                hs.setTotalCost(totalcost);
+
+                historyList.add(hs);
+
+                //update to history file
+                try{
+                    fm.saveHistoriesDataInFile(historyList);
+                }catch (FileNotFoundException e){
+                    e.printStackTrace();
+                }
 
             }else {
-                System.out.println("Wrong email address !!! Try again ....");
+                System.out.println("");
             }
 
     }
@@ -473,25 +515,73 @@ public class Operations implements Functions{
   //cancel one specific booking
     private void cancelBooking(){
         Scanner in = new Scanner(System.in);
+        FileManagement fm = new FileManagement();
 
-        String custName;
+        String custEmail;
         String hotelName;
+
+        int bookedSingleRoom = 0;
+        int bookedDoubleRoom = 0;
+        int bookedPdSuit = 0;
 
 
         System.out.println("Enter customer email:");
-            custName = in.nextLine();
+            custEmail = in.nextLine();
 
         System.out.println("Enter hotel name:");
             hotelName = in.nextLine();
 
-        /*for (int i = 0; i < ; i++) {
+        for (int i = 0; i < bookingLogList.size(); i++) {
+            if((bookingLogList.get(i).getCustomerEmail().equals(custEmail)) && (bookingLogList.get(i).getHotelName().equals(hotelName))){
+                bookedSingleRoom = bookingLogList.get(i).getNumberOfSingleRoom();
+                bookedDoubleRoom = bookingLogList.get(i).getNumberOfDoubleRoom();
+                bookedPdSuit = bookingLogList.get(i).getNumberOfPrcdntSuit();
 
-        }   */
+                //removing booking
+                bookingLogList.remove(i);
 
+
+            }
+        }
+        //bookingLog file updating
+        try{
+            fm.saveBookingLogsDataInFile(bookingLogList);
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+
+        for (int i = 0; i < hotelList.size(); i++) {
+            if(hotelList.get(i).getHotelName().equals(hotelName)){
+                hotelList.get(i).setTotalSingleRooms(hotelList.get(i).getTotalSingleRooms()+bookedSingleRoom);
+                hotelList.get(i).setTotalDoubleRooms(hotelList.get(i).getTotalDoubleRooms()+bookedDoubleRoom);
+                hotelList.get(i).setTotalPresidentialSuit(hotelList.get(i).getTotalPresidentialSuit()+bookedPdSuit);
+                hotelList.get(i).setTotalRooms(hotelList.get(i).getTotalRooms()+bookedSingleRoom+bookedDoubleRoom+bookedPdSuit);
+
+
+            }
+        }
+
+        //updating hotel
+        try{
+            fm.saveHotelsDataInFile(hotelList);
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
     }
 
     // Show history function
     private void showHistory(){
-
+        System.out.println("All the history listed below:");
+        for (int i = 0; i < historyList.size(); i++) {
+            System.out.println("\n\nCustomer name:"+ historyList.get(i).getCustomerName()+
+                    "\tCustomer email:"+ historyList.get(i).getCustomerEmail()+
+                    "\tHotel name:" + historyList.get(i).getHotelName()+
+                    "\tHotel Location:"+ historyList.get(i).getHotelLocation()+
+                    "\tSingle Room"+ historyList.get(i).getNoOfSingleRoom()+
+                    "\tDouble room:"+ historyList.get(i).getNoOfDoubleRoom()+
+                    "\tPresidential suit:" + historyList.get(i).getNoOfPresidentialSuit()+
+                    "\tTotal Cost SEK: " +historyList.get(i).getTotalCost());
+        }
     }
 }

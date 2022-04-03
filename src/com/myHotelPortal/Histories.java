@@ -7,9 +7,9 @@ public class Histories implements Serializable {
     private String customerEmail;
     private String hotelName;
     private String hotelLocation;
-    private String noOfSingleRoom;
-    private String noOfDoubleRoom;
-    private String noOfPresidentialSuit;
+    private int noOfSingleRoom;
+    private int noOfDoubleRoom;
+    private int noOfPresidentialSuit;
     private double totalCost;
 
     public String getCustomerName() {
@@ -44,27 +44,27 @@ public class Histories implements Serializable {
         this.hotelLocation = hotelLocation;
     }
 
-    public String getNoOfSingleRoom() {
+    public int getNoOfSingleRoom() {
         return noOfSingleRoom;
     }
 
-    public void setNoOfSingleRoom(String noOfSingleRoom) {
+    public void setNoOfSingleRoom(int noOfSingleRoom) {
         this.noOfSingleRoom = noOfSingleRoom;
     }
 
-    public String getNoOfDoubleRoom() {
+    public int getNoOfDoubleRoom() {
         return noOfDoubleRoom;
     }
 
-    public void setNoOfDoubleRoom(String noOfDoubleRoom) {
+    public void setNoOfDoubleRoom(int noOfDoubleRoom) {
         this.noOfDoubleRoom = noOfDoubleRoom;
     }
 
-    public String getNoOfPresidentialSuit() {
+    public int getNoOfPresidentialSuit() {
         return noOfPresidentialSuit;
     }
 
-    public void setNoOfPresidentialSuit(String noOfPresidentialSuit) {
+    public void setNoOfPresidentialSuit(int noOfPresidentialSuit) {
         this.noOfPresidentialSuit = noOfPresidentialSuit;
     }
 
